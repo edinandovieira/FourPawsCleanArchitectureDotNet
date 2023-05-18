@@ -1,5 +1,4 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
-using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Infraestructure.Persistence;
 using FourPawsCleanArchitecture.Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +20,8 @@ namespace FourPawsCleanArchitecture.Infraestructure
 
         public static IServiceCollection AddIoCInfra(this IServiceCollection services,
             IConfiguration configuration) => services
-                .AddScoped<ICategoriaRepository, CategoriaRepository>();
+                .AddScoped<ICategoriaRepository, CategoriaRepository>()
+                .AddScoped<IUsuarioRepository, UsuarioRepository>()
+                .AddScoped<IFeriadoRepository, FeriadoRepository>();
     }
 }

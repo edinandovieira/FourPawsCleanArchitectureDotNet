@@ -4,6 +4,7 @@ using FourPawsCleanArchitecture.Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    partial class SqlServeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230518010726_Create Table Feriados")]
+    partial class CreateTableFeriados
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

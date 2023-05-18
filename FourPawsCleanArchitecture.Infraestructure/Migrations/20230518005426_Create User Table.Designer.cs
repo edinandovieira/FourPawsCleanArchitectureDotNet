@@ -4,6 +4,7 @@ using FourPawsCleanArchitecture.Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    partial class SqlServeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230518005426_Create User Table")]
+    partial class CreateUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,36 +48,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                     b.ToTable("Categorias");
 
                     b.HasComment("Tabela das categoria dos produtos");
-                });
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Feriado", b =>
-                {
-                    b.Property<Guid>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do feriado");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2")
-                        .HasComment("Data do feriado");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Nome do feriado");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("'A'")
-                        .HasComment("Status do feriado: A;Ativo;I;Inativo;D;Deletado");
-
-                    b.HasKey("Codigo");
-
-                    b.ToTable("Feriados");
-
-                    b.HasComment("Tabela de feriados");
                 });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Usuario", b =>

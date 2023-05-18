@@ -9,6 +9,8 @@ namespace FourPawsCleanArchitecture.Application
     {
         public static IServiceCollection AddIoCApp(this IServiceCollection services,
             IConfiguration configuration) => services
-                .AddScoped<ICategoriaService, CategoriaService>();
+                .AddScoped<ICategoriaService, CategoriaService>()
+                .AddScoped<IUsuarioService, UsuarioService>()
+                .AddScoped<IFeriadoService, FeriadoService>();
     }
 }
