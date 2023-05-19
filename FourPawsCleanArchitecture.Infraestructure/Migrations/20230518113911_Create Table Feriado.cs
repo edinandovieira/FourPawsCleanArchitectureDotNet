@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
-    public partial class CreateTableFeriados : Migration
+    public partial class CreateTableFeriado : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                 {
                     Codigo = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Código do feriado"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Nome do feriado"),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Data do feriado"),
+                    Data = table.Column<DateTime>(type: "date", nullable: false, comment: "Data do feriado"),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "'A'", comment: "Status do feriado: A;Ativo;I;Inativo;D;Deletado")
                 },
                 constraints: table =>

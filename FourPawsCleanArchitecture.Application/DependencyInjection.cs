@@ -11,6 +11,9 @@ namespace FourPawsCleanArchitecture.Application
             IConfiguration configuration) => services
                 .AddScoped<ICategoriaService, CategoriaService>()
                 .AddScoped<IUsuarioService, UsuarioService>()
-                .AddScoped<IFeriadoService, FeriadoService>();
+                .AddScoped<IFeriadoService, FeriadoService>()
+                .AddScoped<IServicoService, ServicoService>()
+                .AddScoped<IRacaService, RacaService>()
+                .AddScoped<IProdutoService, ProdutoService>();
     }
 }

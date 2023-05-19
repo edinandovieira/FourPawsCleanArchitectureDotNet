@@ -34,6 +34,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
         public Feriado RemoveHolyday(Feriado feriado)
         {
             _db.Feriados.Remove(feriado);
+            _db.SaveChanges();
 
             return feriado;
         }
@@ -41,7 +42,14 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
         public Feriado UpdateHolyday(Feriado feriado)
         {
             _db.Feriados.Update(feriado);
+            _db.SaveChanges();
 
+            return feriado;
+        }
+
+        private Feriado ConvertData(Feriado feriado)
+        {
+            feriado.Data = feriado.Data.Date;
             return feriado;
         }
     }

@@ -14,6 +14,7 @@ namespace FourPawsCleanArchitecture.Application.Services
 
         public Feriado CreateHolyday(Feriado feriado)
         {
+            feriado.Data = feriado.Data.Date;
             _feriadorepository.CreateHolyday(feriado);
             return feriado;
         }

@@ -1,4 +1,5 @@
 ﻿using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Records;
 
 namespace FourPawsCleanArchitecture.Application.Interfaces
 {
@@ -6,7 +7,7 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
     {
         List<Categoria> GetAllCategory();
         Categoria GetCategory(Guid codigo);
-        Categoria CreateCategory(Categoria categoria);
+        Categoria CreateCategory(RCategoriaRequest rCategoriaRequest);
         Categoria UpdateCategory(Categoria categoria);
         Categoria RemoveCategory(Categoria categoria);
     }

@@ -1,7 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
@@ -33,19 +32,19 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Categoria> PostCategory(Categoria categoria)
+        public ActionResult<Categoria> CreateCategoria(RCategoriaRequest rCategoriaRequest)
         {
-            var Categoria = _categoriaService.CreateCategory(categoria);
-            return Ok(categoria);
+            var response = _categoriaService.CreateCategory(rCategoriaRequest);
+            return Ok(response);
         }
 
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult<Categoria> UpdateCategory([FromRoute] Guid codigo, RUpdateCategory rUpdateCategory)
+        public ActionResult<Categoria> UpdateCategory([FromRoute] Guid codigo, RCategoriaRequest rCategoriaRequest)
         {
             var newCategoria = _categoriaService.GetCategory(codigo);
 
-            newCategoria.Nome = rUpdateCategory.nome;
+            newCategoria.Nome = rCategoriaRequest.nome;
 
             newCategoria = _categoriaService.UpdateCategory(newCategoria);
 

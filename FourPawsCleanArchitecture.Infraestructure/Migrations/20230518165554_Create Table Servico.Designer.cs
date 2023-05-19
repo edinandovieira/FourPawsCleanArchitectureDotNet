@@ -4,6 +4,7 @@ using FourPawsCleanArchitecture.Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    partial class SqlServeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230518165554_Create Table Servico")]
+    partial class CreateTableServico
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,82 +80,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                     b.HasComment("Tabela de feriados");
                 });
 
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Produto", b =>
-                {
-                    b.Property<Guid>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do produto");
-
-                    b.Property<string>("Arquivo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Arquivo do produto");
-
-                    b.Property<Guid>("CodigoCategoria")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Categoria do produto");
-
-                    b.Property<int>("Estoque")
-                        .HasColumnType("int")
-                        .HasComment("Estoque do produto");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Nome do produto");
-
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)")
-                        .HasComment("Preço do produto");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("'A'")
-                        .HasComment("Status do produto: A;Ativo;I;Inativo;D;Deletado");
-
-                    b.Property<string>("Unidade")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Unidade do produto");
-
-                    b.HasKey("Codigo");
-
-                    b.HasIndex("CodigoCategoria");
-
-                    b.ToTable("Produtos");
-
-                    b.HasComment("Tabela referente aos produtos do estabelecimento");
-                });
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Raca", b =>
-                {
-                    b.Property<Guid>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do Serviço");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Nome do serviço");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("'A'")
-                        .HasComment("Status do serviço: A;Ativo;I;Inativo;D;Deletado");
-
-                    b.HasKey("Codigo");
-
-                    b.ToTable("Racas");
-
-                    b.HasComment("Tabela referente aos serviços do estabelecimento");
-                });
-
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Servico", b =>
                 {
                     b.Property<Guid>("Codigo")
@@ -216,22 +142,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                     b.ToTable("Usuarios");
 
                     b.HasComment("Tabela referentes ao usuários do sistema");
-                });
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Produto", b =>
-                {
-                    b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Categoria", "Categorias")
-                        .WithMany("Produtos")
-                        .HasForeignKey("CodigoCategoria")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Categorias");
-                });
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Categoria", b =>
-                {
-                    b.Navigation("Produtos");
                 });
 #pragma warning restore 612, 618
         }

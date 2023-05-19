@@ -1,4 +1,4 @@
 ﻿namespace FourPawsCleanArchitecture.Domain.Records
 {
-    public record RUpdateCategory(string nome);
+    public record RCategoriaRequest(string nome);
 }

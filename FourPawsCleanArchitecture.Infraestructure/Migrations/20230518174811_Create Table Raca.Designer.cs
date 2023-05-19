@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    [Migration("20230518010726_Create Table Feriados")]
-    partial class CreateTableFeriados
+    [Migration("20230518174811_Create Table Raca")]
+    partial class CreateTableRaca
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,7 +58,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                         .HasComment("Código do feriado");
 
                     b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("date")
                         .HasComment("Data do feriado");
 
                     b.Property<string>("Nome")
@@ -78,6 +78,58 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                     b.ToTable("Feriados");
 
                     b.HasComment("Tabela de feriados");
+                });
+
+            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Raca", b =>
+                {
+                    b.Property<Guid>("Codigo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Código do Serviço");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Nome do serviço");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValueSql("'A'")
+                        .HasComment("Status do serviço: A;Ativo;I;Inativo;D;Deletado");
+
+                    b.HasKey("Codigo");
+
+                    b.ToTable("Racas");
+
+                    b.HasComment("Tabela referente aos serviços do estabelecimento");
+                });
+
+            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Servico", b =>
+                {
+                    b.Property<Guid>("Codigo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Código do Serviço");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Nome do serviço");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValueSql("'A'")
+                        .HasComment("Status do serviço: A;Ativo;I;Inativo;D;Deletado");
+
+                    b.HasKey("Codigo");
+
+                    b.ToTable("Servicos");
+
+                    b.HasComment("Tabela referente aos serviços do estabelecimento");
                 });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Usuario", b =>

@@ -13,6 +13,9 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Feriado> Feriados { get; set; }
+        public DbSet<Servico> Servicos { get; set; }
+        public DbSet<Raca> Racas { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
 
         public Task<int> SaveChangesAsync()
         {
@@ -39,10 +42,22 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
 
-            modelBuilder.Entity<Feriado>()
-                .HasKey(e => e.Codigo);
+            //modelBuilder.Entity<Feriado>()
+            //    .HasKey(e => e.Codigo);
 
             modelBuilder.Entity<Feriado>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Servico>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Raca>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Produto>()
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
         }

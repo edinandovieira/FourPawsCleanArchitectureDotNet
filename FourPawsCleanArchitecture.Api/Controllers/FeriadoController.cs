@@ -1,5 +1,4 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
-using FourPawsCleanArchitecture.Application.Services;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +32,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Feriado> PostCategory(Feriado feriado)
+        public ActionResult<Feriado> CreateHolyday(Feriado feriado)
         {
             var Feriado = _feriadoService.CreateHolyday(feriado);
             return Ok(feriado);
@@ -41,12 +40,12 @@ namespace FourPawsCleanArchitecture.Api.Controllers
 
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult<Feriado> UpdateCategory([FromRoute] Guid codigo, RUpdateFeriado rUpdateFeriado)
+        public ActionResult<Feriado> UpdateHolyday([FromRoute] Guid codigo, RUpdateFeriado rUpdateFeriado)
         {
             var newFeriado = _feriadoService.GetHolyday(codigo);
 
             newFeriado.Nome = rUpdateFeriado.Nome;
-            newFeriado.Data = rUpdateFeriado.Data;
+            newFeriado.Data = rUpdateFeriado.Data.Date;
             newFeriado.Status = rUpdateFeriado.Status;
 
             newFeriado = _feriadoService.UpdateHolyday(newFeriado);

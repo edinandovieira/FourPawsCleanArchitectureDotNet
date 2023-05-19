@@ -17,7 +17,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Usuario>> GetAll()
+        public ActionResult<List<Usuario>> GetAllUser()
         {
             var usuarios = _usuarioService.GetAllUser();
             return Ok(usuarios);
@@ -25,14 +25,14 @@ namespace FourPawsCleanArchitecture.Api.Controllers
 
         [HttpGet]
         [Route("{codigo:guid}")]
-        public ActionResult<Usuario> Get(Guid codigo)
+        public ActionResult<Usuario> GetUser(Guid codigo)
         {
             var usuario = _usuarioService.GetUser(codigo);
             return Ok(usuario);
         }
 
         [HttpPost]
-        public ActionResult<Usuario> PostCategory(Usuario usuario)
+        public ActionResult<Usuario> CreateUser(Usuario usuario)
         {
             var Usuario = _usuarioService.CreateUser(usuario);
             return Ok(usuario);

@@ -1,4 +1,6 @@
-﻿namespace FourPawsCleanArchitecture.Domain.Records
+﻿using Microsoft.VisualBasic;
+
+namespace FourPawsCleanArchitecture.Domain.Records
 {
     public record RUpdateFeriado
     (

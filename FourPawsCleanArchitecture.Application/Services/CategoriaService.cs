@@ -1,5 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Records;
 
 namespace FourPawsCleanArchitecture.Application.Services
 {
@@ -12,10 +13,16 @@ namespace FourPawsCleanArchitecture.Application.Services
             _categoriarepository = categoriarepository;
         }
 
-        public Categoria CreateCategory(Categoria categoria)
+        public Categoria CreateCategory(RCategoriaRequest rCategoriaRequest)
         {
-            _categoriarepository.CreateCategory(categoria);
-            return categoria;
+            var newCategoria = new Categoria
+            {
+                Codigo = new Guid(),
+                Nome = rCategoriaRequest.nome
+            };
+
+            _categoriarepository.CreateCategory(newCategoria);
+            return newCategoria;
         }
 
         public Categoria GetCategory(Guid codigo)
