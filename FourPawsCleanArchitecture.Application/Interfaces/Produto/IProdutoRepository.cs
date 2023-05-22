@@ -1,5 +1,4 @@
 ﻿using FourPawsCleanArchitecture.Domain.Entities;
-using FourPawsCleanArchitecture.Domain.Records;
 
 namespace FourPawsCleanArchitecture.Application.Interfaces
 {

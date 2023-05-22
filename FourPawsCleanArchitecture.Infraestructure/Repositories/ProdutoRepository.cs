@@ -23,7 +23,8 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
 
         public List<Produto> GetAllProdutos()
         {
-            return _db.Produtos.ToList();
+            var produto = _db.Produtos.ToList();
+            return produto;
         }
 
         public Produto GetProduto(Guid codigo)

@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIoCInfra(builder.Configuration);
 builder.Services.AddIoCApp(builder.Configuration);
+builder.Services.AddMapper(builder.Configuration);
 
 var app = builder.Build();
 

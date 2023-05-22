@@ -15,5 +15,9 @@ namespace FourPawsCleanArchitecture.Application
                 .AddScoped<IServicoService, ServicoService>()
                 .AddScoped<IRacaService, RacaService>()
                 .AddScoped<IProdutoService, ProdutoService>();
-    }
+
+        public static IServiceCollection AddMapper(this IServiceCollection services,
+            IConfiguration configuration) => services
+                .AddSingleton(AutoMapperConfig.Configure());
+    }    
 }

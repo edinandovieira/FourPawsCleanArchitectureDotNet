@@ -1,6 +1,5 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Records;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
@@ -32,9 +31,10 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllProdutos()
+        public ActionResult GetAllProduto()
+        //<List<Produto>>
         {
-            var response = _produtoService.GetAllProdutos;
+            var response = _produtoService.GetAllProduto();
             return Ok(response);
         }
 

@@ -1,21 +1,26 @@
-﻿using FourPawsCleanArchitecture.Application.Interfaces;
+﻿using AutoMapper;
+using FourPawsCleanArchitecture.Application.DTOs;
+using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
 using FourPawsCleanArchitecture.Domain.Responses;
+using System.Collections.Generic;
 
 namespace FourPawsCleanArchitecture.Application.Services
 {
     public class ProdutoService : IProdutoService
     {
         private readonly IProdutoRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ProdutoService(IProdutoRepository repository)
+        public ProdutoService(IProdutoRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public Produto CreateProduto(RProdutoRequest rProdutoRequest)
-        {
+        {            
             var newProduto = new Produto
             {
                 Codigo = new Guid(),
@@ -31,16 +36,18 @@ namespace FourPawsCleanArchitecture.Application.Services
 
             return newProduto;
         }
-
-        public List<Produto> GetAllProdutos()
+        public List<ProdutoDTO> GetAllProduto()
         {
-            var response = _repository.GetAllProdutos();
-            return response;
+            List<Produto> produto = _repository.GetAllProdutos();
+            List <ProdutoDTO> produtoDTO = _mapper.Map<List<ProdutoDTO>>(produto);
+            return produtoDTO;
         }
 
-        public Produto GetProduto(Guid codigo)
+        public ProdutoDTO GetProduto(Guid codigo)
         {
-            return _repository.GetProduto(codigo);
+            Produto produto = _repository.GetProduto(codigo);
+            ProdutoDTO produtoDTO = _mapper.Map<ProdutoDTO>(produto);
+            return produtoDTO;
         }
 
         public Produto RemoveProduto(Guid codigo)

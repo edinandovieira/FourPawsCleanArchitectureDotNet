@@ -60,6 +60,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
             modelBuilder.Entity<Produto>()
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Produto>()
+                .Property(e => e.Preco)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }
