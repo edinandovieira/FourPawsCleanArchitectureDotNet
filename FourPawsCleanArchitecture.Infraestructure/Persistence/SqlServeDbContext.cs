@@ -16,6 +16,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
         public DbSet<Servico> Servicos { get; set; }
         public DbSet<Raca> Racas { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Agendamento> Agendamentos { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
 
         public Task<int> SaveChangesAsync()
         {
@@ -64,6 +68,22 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
             modelBuilder.Entity<Produto>()
                 .Property(e => e.Preco)
                 .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Pet>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Cliente>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Venda>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Agendamento>()
+                .Property(e => e.Status)
+                .HasDefaultValueSql("'A'");
         }
     }
 }

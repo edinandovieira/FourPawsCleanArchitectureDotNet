@@ -32,7 +32,6 @@ namespace FourPawsCleanArchitecture.Api.Controllers
 
         [HttpGet]
         public ActionResult GetAllProduto()
-        //<List<Produto>>
         {
             var response = _produtoService.GetAllProduto();
             return Ok(response);

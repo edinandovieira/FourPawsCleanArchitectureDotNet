@@ -10,8 +10,6 @@ namespace FourPawsCleanArchitecture.Application
         {
             var mapperConfig = new MapperConfiguration(config =>
             {
-                /*config.CreateMap<Produto, ProdutoDTO>()
-                      .ForMember(dest => dest.C, opt => opt.MapFrom(src => src.));*/
                 config.CreateMap<Produto, ProdutoDTO>();
             });
 
