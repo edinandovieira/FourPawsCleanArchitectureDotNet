@@ -4,6 +4,7 @@ using FourPawsCleanArchitecture.Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    partial class SqlServeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524002956_Create Tables Pet, Cliente e Venda")]
+    partial class CreateTablesPetClienteeVenda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,47 +23,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Agendamento", b =>
-                {
-                    b.Property<Guid>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do agendamento");
-
-                    b.Property<Guid>("CodigoPet")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do pet");
-
-                    b.Property<Guid>("CodigoServico")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do serviço");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("date")
-                        .HasComment("Data do agendamento");
-
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)")
-                        .HasComment("Preço do serviço agendado na data");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("'A'")
-                        .HasComment("Status do agendamento: A;Ativo;I;Inativo;D;Deletado");
-
-                    b.HasKey("Codigo");
-
-                    b.HasIndex("CodigoPet");
-
-                    b.HasIndex("CodigoServico");
-
-                    b.ToTable("Agendamentos");
-
-                    b.HasComment("Tabela referente aos agendamentos do sistema");
-                });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Categoria", b =>
                 {
@@ -402,25 +363,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                     b.HasComment("Tabela referente as vendas");
                 });
 
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Agendamento", b =>
-                {
-                    b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Pet", "Pets")
-                        .WithMany("Agendamentos")
-                        .HasForeignKey("CodigoPet")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Servico", "Servicos")
-                        .WithMany("Agendamentos")
-                        .HasForeignKey("CodigoServico")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pets");
-
-                    b.Navigation("Servicos");
-                });
-
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Pet", b =>
                 {
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Cliente", "Clientes")
@@ -478,16 +420,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Cliente", b =>
                 {
                     b.Navigation("Pets");
-                });
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Pet", b =>
-                {
-                    b.Navigation("Agendamentos");
-                });
-
-            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Servico", b =>
-                {
-                    b.Navigation("Agendamentos");
                 });
 #pragma warning restore 612, 618
         }

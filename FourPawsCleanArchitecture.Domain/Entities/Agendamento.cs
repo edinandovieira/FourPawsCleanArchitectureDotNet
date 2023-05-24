@@ -14,8 +14,6 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         public Guid Codigo { get; set; }
         [Comment("Código do serviço")]
         public Guid CodigoServico { get; set; }
-        [Comment("Código do cliente na data do agendamento")]
-        public Guid CodigoCliente { get; set; }
         [Comment("Código do pet")]
         public Guid CodigoPet { get; set; }
         [Comment("Data do agendamento")]
@@ -30,9 +28,6 @@ namespace FourPawsCleanArchitecture.Domain.Entities
 
         [ForeignKey("CodigoServico")]
         public Servico Servicos { get; set; }
-
-        [ForeignKey("CodigoCliente")]
-        public Cliente Clientes { get; set; }
 
         [ForeignKey("CodigoPet")]
         public Pet Pets { get; set; }

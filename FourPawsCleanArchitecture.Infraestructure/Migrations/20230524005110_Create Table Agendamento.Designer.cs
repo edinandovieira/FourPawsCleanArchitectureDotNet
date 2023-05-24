@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    [Migration("20230523012309_Create Tables Pet, Cliente, Venda e Agendamento")]
-    partial class CreateTablesPetClienteVendaeAgendamento
+    [Migration("20230524005110_Create Table Agendamento")]
+    partial class CreateTableAgendamento
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Código do agendamento");
-
-                    b.Property<Guid>("CodigoCliente")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Código do cliente na data do agendamento");
 
                     b.Property<Guid>("CodigoPet")
                         .HasColumnType("uniqueidentifier")
@@ -59,8 +55,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
                         .HasComment("Status do agendamento: A;Ativo;I;Inativo;D;Deletado");
 
                     b.HasKey("Codigo");
-
-                    b.HasIndex("CodigoCliente");
 
                     b.HasIndex("CodigoPet");
 
@@ -412,25 +406,17 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Agendamento", b =>
                 {
-                    b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Cliente", "Clientes")
-                        .WithMany()
-                        .HasForeignKey("CodigoCliente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Pet", "Pets")
-                        .WithMany()
+                        .WithMany("Agendamentos")
                         .HasForeignKey("CodigoPet")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Servico", "Servicos")
-                        .WithMany()
+                        .WithMany("Agendamentos")
                         .HasForeignKey("CodigoServico")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Clientes");
 
                     b.Navigation("Pets");
 
@@ -494,6 +480,16 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Cliente", b =>
                 {
                     b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Pet", b =>
+                {
+                    b.Navigation("Agendamentos");
+                });
+
+            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Servico", b =>
+                {
+                    b.Navigation("Agendamentos");
                 });
 #pragma warning restore 612, 618
         }

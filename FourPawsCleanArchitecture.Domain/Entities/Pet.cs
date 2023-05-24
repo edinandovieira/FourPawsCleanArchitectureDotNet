@@ -26,5 +26,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
 
         [ForeignKey("CodigoCliente")]
         public Cliente Clientes { get; set; }
+
+        public ICollection<Agendamento> Agendamentos { get; set;}
     }
 }

@@ -18,5 +18,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         public string Nome { get; set; }
         [Comment("Status do serviço: A;Ativo;I;Inativo;D;Deletado")]
         public string Status { get; set; }
+
+        public ICollection<Agendamento> Agendamentos { get; set; }
     }
 }
