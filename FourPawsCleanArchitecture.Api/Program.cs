@@ -1,8 +1,5 @@
 using FourPawsCleanArchitecture.Application;
 using FourPawsCleanArchitecture.Infraestructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,20 +14,7 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIoCInfra(builder.Configuration);
 builder.Services.AddIoCApp(builder.Configuration);
 builder.Services.AddMapper(builder.Configuration);
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "seu_issuer",
-            ValidAudience = "seu_audience",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("sua_chave_secreta"))
-        };
-    });
+builder.Services.AddJwtAuth(builder.Configuration);
 
 var app = builder.Build();
 

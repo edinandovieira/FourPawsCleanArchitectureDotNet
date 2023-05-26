@@ -2,6 +2,7 @@
 using FourPawsCleanArchitecture.Application.Services;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _racaservice = racaService;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Raca> CreateRaca(RRacaRequest rRacaRequest)
         {
@@ -25,6 +27,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("{codigo:guid}")]
         public ActionResult<Raca> GetRaca(Guid codigo)
@@ -33,6 +36,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<Raca>> GetAllRacas()
         {
@@ -40,6 +44,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
         public ActionResult<Raca> UpdateRaca([FromRoute] Guid codigo, RRacaRequest rRacaRequest)

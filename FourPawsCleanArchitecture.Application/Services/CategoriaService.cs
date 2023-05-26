@@ -1,4 +1,6 @@
-﻿using FourPawsCleanArchitecture.Application.Interfaces;
+﻿using AutoMapper;
+using FourPawsCleanArchitecture.Application.DTOs;
+using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
 
@@ -7,13 +9,15 @@ namespace FourPawsCleanArchitecture.Application.Services
     public class CategoriaService : ICategoriaService
     {
         private readonly ICategoriaRepository _categoriarepository;
+        private readonly IMapper _mapper;
 
-        public CategoriaService(ICategoriaRepository categoriarepository)
+        public CategoriaService(ICategoriaRepository categoriarepository, IMapper mapper)
         {
             _categoriarepository = categoriarepository;
+            _mapper = mapper;
         }
 
-        public Categoria CreateCategory(RCategoriaRequest rCategoriaRequest)
+        public CategoriaDTO CreateCategory(RCategoriaRequest rCategoriaRequest)
         {
             var newCategoria = new Categoria
             {
@@ -22,29 +26,41 @@ namespace FourPawsCleanArchitecture.Application.Services
             };
 
             _categoriarepository.CreateCategory(newCategoria);
-            return newCategoria;
+            CategoriaDTO response = _mapper.Map<CategoriaDTO>(newCategoria);
+            return response;
         }
 
-        public Categoria GetCategory(Guid codigo)
+        public CategoriaDTO GetCategory(Guid codigo)
         {
-            return _categoriarepository.GetCategory(codigo);
+            var category = _categoriarepository.GetCategory(codigo);
+            CategoriaDTO response = _mapper.Map<CategoriaDTO>(category);
+            return response;
         }
 
-        public List<Categoria> GetAllCategory()
+        public List<CategoriaDTO> GetAllCategory()
         {
             var categorias = _categoriarepository.GetAllCategory();
-            return categorias;
+            List<CategoriaDTO> response = _mapper.Map<List<CategoriaDTO>>(categorias);
+            return response;
         }
 
-        public Categoria RemoveCategory(Categoria categoria)
+        public CategoriaDTO RemoveCategory(Categoria categoria)
         {
-            _categoriarepository.RemoveCategory(categoria);
-            return categoria;
+            var category = _categoriarepository.RemoveCategory(categoria);
+            CategoriaDTO response = _mapper.Map<CategoriaDTO>(category);
+            return response;
         }
 
-        public Categoria UpdateCategory(Categoria categoria)
+        public CategoriaDTO UpdateCategory(Guid codigo, RCategoriaRequest rCategoriaRequest)
         {
-            return _categoriarepository.UpdateCategory(categoria);
+            var newCategoria = _categoriarepository.GetCategory(codigo);
+
+            newCategoria.Nome = rCategoriaRequest.nome;
+
+            var category = _categoriarepository.UpdateCategory(newCategoria);
+
+            CategoriaDTO response = _mapper.Map<CategoriaDTO>(category);
+            return response;
         }
     }
 }

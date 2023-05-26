@@ -1,5 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Records;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
@@ -15,6 +16,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _produtoService = produtoService;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult CreateProduto(RProdutoRequest rProdutoRequest)
         {
@@ -22,6 +24,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("{codigo:guid}")]
         public ActionResult GetProduto(Guid codigo)
@@ -30,6 +33,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult GetAllProduto()
         {
@@ -37,6 +41,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
         public ActionResult UpdateProduto([FromRoute] Guid codigo, RProdutoRequest rProdutoRequest)

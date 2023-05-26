@@ -1,6 +1,9 @@
-﻿using FourPawsCleanArchitecture.Application.Interfaces;
+﻿using FourPawsCleanArchitecture.Application.DTOs;
+using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
@@ -16,42 +19,39 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _usuarioService = usuarioService;
         }
 
+        [Authorize]
         [HttpGet]
-        public ActionResult<List<Usuario>> GetAllUser()
+        public ActionResult<List<UsuarioDTOReponse>> GetAllUser()
         {
             var usuarios = _usuarioService.GetAllUser();
             return Ok(usuarios);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{codigo:guid}")]
-        public ActionResult<Usuario> GetUser(Guid codigo)
+        public ActionResult<UsuarioDTOReponse> GetUser(Guid codigo)
         {
             var usuario = _usuarioService.GetUser(codigo);
             return Ok(usuario);
         }
 
+        [Authorize]
         [HttpPost]
-        public ActionResult<Usuario> CreateUser(Usuario usuario)
+        public ActionResult<UsuarioDTOReponse> CreateUser(UsuarioInput usuarioInput)
         {
-            var Usuario = _usuarioService.CreateUser(usuario);
-            return Ok(usuario);
+            var Usuario = _usuarioService.CreateUser(usuarioInput);
+            return Ok(Usuario);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult<Usuario> UpdateCategory([FromRoute] Guid codigo, RUpdateUsuario rUpdateUsuario)
+        public ActionResult<UsuarioDTOReponse> UpdateCategory([FromRoute] Guid codigo, RUpdateUsuario rUpdateUsuario)
         {
-            var newUsuario = _usuarioService.GetUser(codigo);
+            var response = _usuarioService.UpdateUser(codigo, rUpdateUsuario);
 
-            newUsuario.Nome = rUpdateUsuario.Nome;
-            newUsuario.Senha = rUpdateUsuario.Senha;
-            newUsuario.Tipo = rUpdateUsuario.Tipo;
-            newUsuario.Status = rUpdateUsuario.Status;
-
-            newUsuario = _usuarioService.UpdateUser(newUsuario);
-
-            return Ok(newUsuario);
+            return Ok(response);
         }
     }
 }

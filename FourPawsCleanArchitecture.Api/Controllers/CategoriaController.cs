@@ -1,6 +1,8 @@
-﻿using FourPawsCleanArchitecture.Application.Interfaces;
+﻿using FourPawsCleanArchitecture.Application.DTOs;
+using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
@@ -16,39 +18,38 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _categoriaService = categoriaService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
-        public ActionResult<List<Categoria>> GetAll()
+        public ActionResult GetAll()
         {
             var categorias = _categoriaService.GetAllCategory();
             return Ok(categorias);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("{codigo:guid}")]
-        public ActionResult<Categoria> Get(Guid codigo)
+        public ActionResult Get(Guid codigo)
         {
             var categoria = _categoriaService.GetCategory(codigo);
             return Ok(categoria);
         }
 
+        [Authorize]
         [HttpPost]
-        public ActionResult<Categoria> CreateCategoria(RCategoriaRequest rCategoriaRequest)
+        public ActionResult CreateCategoria(RCategoriaRequest rCategoriaRequest)
         {
             var response = _categoriaService.CreateCategory(rCategoriaRequest);
             return Ok(response);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult<Categoria> UpdateCategory([FromRoute] Guid codigo, RCategoriaRequest rCategoriaRequest)
+        public ActionResult UpdateCategory([FromRoute] Guid codigo, RCategoriaRequest rCategoriaRequest)
         {
-            var newCategoria = _categoriaService.GetCategory(codigo);
-
-            newCategoria.Nome = rCategoriaRequest.nome;
-
-            newCategoria = _categoriaService.UpdateCategory(newCategoria);
-
-            return Ok(newCategoria);
+            var response = _categoriaService.UpdateCategory(codigo, rCategoriaRequest);
+            return Ok(response);
         }
     }
 }

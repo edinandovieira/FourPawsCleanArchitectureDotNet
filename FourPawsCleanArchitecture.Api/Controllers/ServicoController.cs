@@ -2,6 +2,7 @@
 using FourPawsCleanArchitecture.Application.Services;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
@@ -17,6 +18,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _servicoService = servicoService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<Servico>> GetAll()
         {
@@ -24,6 +26,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(servicos);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("{codigo:guid}")]
         public ActionResult<Servico> GetServico(Guid codigo)
@@ -32,6 +35,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(servicos);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Servico> CreateServico(RServicoPrincipal rServicoPrincipal)
         {
@@ -39,6 +43,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(Servico);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
         public ActionResult<Servico> UpdateCategory([FromRoute] Guid codigo, RServicoPrincipal rServicoPrincipal)
