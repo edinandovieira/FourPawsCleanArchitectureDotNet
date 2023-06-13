@@ -18,6 +18,7 @@ namespace FourPawsCleanArchitecture.Application.Services
         private readonly string _secretKey;
         private readonly string _issuer;
         private readonly string _audience;
+        private readonly double _exp;
 
         public LoginService(ILoginRepository repository, IMapper mapper, IConfiguration configuration)
         {
@@ -26,6 +27,7 @@ namespace FourPawsCleanArchitecture.Application.Services
             _secretKey = configuration["JWT:SecretKey"];
             _issuer = configuration["JWT:Issuer"];
             _audience = configuration["JWT:Audience"];
+            _exp = double.Parse(configuration["JWT:ExpiryTimeInSeconds"]);
         }
 
         public Login CreateToken(LoginInput loginInput)
@@ -45,7 +47,7 @@ namespace FourPawsCleanArchitecture.Application.Services
                 issuer: _issuer,
                 audience: _audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
+                expires: DateTime.UtcNow.AddSeconds(_exp),
                 signingCredentials: credentials
             );
 

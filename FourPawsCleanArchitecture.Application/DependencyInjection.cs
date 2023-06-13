@@ -41,7 +41,8 @@ namespace FourPawsCleanArchitecture.Application
                             ClockSkew = TimeSpan.Zero,
                             ValidIssuer = configuration["JWT:Issuer"],
                             ValidAudience = configuration["JWT:Audience"],
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"]))
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"])),
+                            RequireExpirationTime = true
                         };
                     });
         }
