@@ -13,15 +13,15 @@ namespace FourPawsCleanArchitecture.Application.Services
             _repository = repository;
         }
 
-        public Raca CreateRaca(RRacaRequest rRacaRequest)
+        public Raca CreateRaca(string nome, string fileName, FileStream file)
         {
             var Raca = new Raca
             {
                 Codigo = new Guid(),
-                Nome = rRacaRequest.Nome,
-                Status = rRacaRequest.Status
+                Nome = nome,
+                Avatar = "Assets/Breed/" + fileName
             };
-            var response = _repository.CreateRaca(Raca);
+            var response = _repository.CreateRaca(Raca, file);
             return response;
         }
 

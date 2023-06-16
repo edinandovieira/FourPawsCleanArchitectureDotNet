@@ -1,6 +1,8 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Infraestructure.Persistence;
+using System.IO;
+using System.IO.Pipes;
 
 namespace FourPawsCleanArchitecture.Infraestructure.Repositories
 {
@@ -13,10 +15,19 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
             _db = db;
         }
 
-        public Raca CreateRaca(Raca raca)
+        public Raca CreateRaca(Raca raca, FileStream file)
         {
             _db.Racas.Add(raca);
             _db.SaveChanges();
+
+            string path = $@"../FourPawsCleanArchitecture.Infraestructure/{raca.Avatar}";
+
+            using (var filestream = new FileStream(path, FileMode.Create))
+            {
+                file.Position = 0;
+                file.CopyTo(filestream);
+            }
+
             return raca;
         }
 
