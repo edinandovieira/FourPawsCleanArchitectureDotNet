@@ -7,7 +7,7 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
         public Raca CreateRaca(Raca raca, FileStream file);
         public Raca GetRaca(Guid codigo);
         public List<Raca> GetAllRacas();
-        public Raca UpdateRaca(Raca raca);
+        public Raca UpdateRaca(Raca raca, FileStream? file);
         public Raca RemoveRaca(Raca raca);
     }
 }

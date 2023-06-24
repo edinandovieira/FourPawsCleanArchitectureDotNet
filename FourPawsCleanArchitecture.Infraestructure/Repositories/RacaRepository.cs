@@ -48,10 +48,22 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
             return raca;
         }
 
-        public Raca UpdateRaca(Raca raca)
+        public Raca UpdateRaca(Raca raca, FileStream? file = null)
         {
             _db.Racas.Update(raca);
             _db.SaveChanges();
+
+            if (file != null)
+            {
+                string path = $@"../FourPawsCleanArchitecture.Infraestructure/{raca.Avatar}";
+
+                using (var filestream = new FileStream(path, FileMode.Create))
+                {
+                    file.Position = 0;
+                    file.CopyTo(filestream);
+                }
+            }            
+
             return raca;
         }
     }

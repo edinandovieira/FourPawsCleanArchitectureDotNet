@@ -3,6 +3,8 @@ using FourPawsCleanArchitecture.Domain.Entities;
 using FourPawsCleanArchitecture.Domain.Records;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.IO.Pipes;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
 {
@@ -57,14 +59,40 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult<Raca> UpdateRaca([FromRoute] Guid codigo, RRacaRequest rRacaRequest)
+        [Consumes("multipart/form-data")]
+        public ActionResult<Raca> UpdateRaca([FromRoute] Guid codigo, [FromForm] string nome, [FromForm] string status, [FromForm] IFormFile? file)
         {
-            var response = _racaservice.UpdateRaca(codigo, rRacaRequest);
+            if (file != null)
+            {
+                var fileName = file.FileName;
 
-            return Ok(response);
+                var filestream = new FileStream(fileName, FileMode.Create);
+
+                file.CopyTo(filestream);
+
+                var response = _racaservice.UpdateRaca(codigo, nome, status, fileName, filestream);
+
+                filestream.Close();
+
+                System.IO.File.Delete(fileName);
+
+
+                return Ok(response);
+            }
+            else
+            {
+                string fileName = null;
+
+                FileStream filestream = null;
+
+                var response = _racaservice.UpdateRaca(codigo, nome, status, fileName, filestream);
+
+
+                return Ok(response);
+            }
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet]
         [Route("avatar/{codigo:guid}")]
         public ActionResult GetRacaAvatar([FromRoute] Guid codigo)

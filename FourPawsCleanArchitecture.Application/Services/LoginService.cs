@@ -37,7 +37,7 @@ namespace FourPawsCleanArchitecture.Application.Services
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, loginInput.login)
+                new Claim("login", loginInput.login)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));

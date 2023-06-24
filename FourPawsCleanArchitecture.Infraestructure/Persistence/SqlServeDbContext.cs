@@ -1,6 +1,7 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace FourPawsCleanArchitecture.Infraestructure.Persistence
 {
@@ -33,6 +34,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
 
             modelBuilder.Entity<Categoria>()
                 .Property(e => e.Status)
+                .HasConversion(
+                    value => ConvertStatusToStr(value),
+                    value => ConvertStatusToDb(value)
+                )
                 .HasDefaultValueSql("'A'");
 
             modelBuilder.Entity<Usuario>()
@@ -55,14 +60,22 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
 
             modelBuilder.Entity<Servico>()
                 .Property(e => e.Status)
-                .HasDefaultValueSql("'A'");
+                .HasDefaultValueSql("'A'"); 
 
             modelBuilder.Entity<Raca>()
                 .Property(e => e.Status)
+                .HasConversion(
+                    value => ConvertStatusToStr(value),
+                    value => ConvertStatusToDb(value)
+                )
                 .HasDefaultValueSql("'A'");
 
             modelBuilder.Entity<Produto>()
                 .Property(e => e.Status)
+                .HasConversion(
+                    value => ConvertStatusToStr(value),
+                    value => ConvertStatusToDb(value)
+                )
                 .HasDefaultValueSql("'A'");
 
             modelBuilder.Entity<Produto>()
@@ -84,6 +97,32 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
             modelBuilder.Entity<Agendamento>()
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
+        }
+
+        private string ConvertStatusToStr(string value)
+        {
+            switch (value)
+            {
+                case "Ativo":
+                    return "A";
+                case "Inativo":
+                    return "I";
+                default:
+                    throw new NotSupportedException($"Valor inválido: {value}");
+            }
+        }
+
+        private string ConvertStatusToDb(string value)
+        {
+            switch (value)
+            {
+                case "A":
+                    return "Ativo";
+                case "I":
+                    return "Inativo";
+                default:
+                    throw new NotSupportedException($"Valor inválido: {value}");
+            }
         }
     }
 }

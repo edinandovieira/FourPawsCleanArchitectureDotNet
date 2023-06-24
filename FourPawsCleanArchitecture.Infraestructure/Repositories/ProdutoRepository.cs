@@ -13,10 +13,18 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
             _db = db;
         }
 
-        public Produto CreateProduto(Produto produto)
+        public Produto CreateProduto(Produto produto, FileStream file)
         {
             _db.Produtos.Add(produto);
             _db.SaveChanges();
+
+            string path = $@"../FourPawsCleanArchitecture.Infraestructure/{produto.Arquivo}";
+
+            using (var filestream = new FileStream(path, FileMode.Create))
+            {
+                file.Position = 0;
+                file.CopyTo(filestream);
+            }
 
             return produto;
         }

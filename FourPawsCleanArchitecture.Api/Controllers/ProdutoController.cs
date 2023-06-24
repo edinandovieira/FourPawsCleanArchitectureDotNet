@@ -1,4 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
+using FourPawsCleanArchitecture.Application.Services;
+using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +20,20 @@ namespace FourPawsCleanArchitecture.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateProduto(RProdutoRequest rProdutoRequest)
+        [Consumes("multipart/form-data")]
+        public ActionResult CreateProduto([FromForm] ProductInput productInput, [FromForm] IFormFile file)
         {
-            var response = _produtoService.CreateProduto(rProdutoRequest);
+            var fileName = file.FileName;
+
+            var filestream = new FileStream(fileName, FileMode.Create);
+            file.CopyTo(filestream);
+
+            var response = _produtoService.CreateProduto(productInput, fileName, filestream);
+
+            filestream.Close();
+
+            System.IO.File.Delete(fileName);
+
             return Ok(response);
         }
 

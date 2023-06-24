@@ -2,6 +2,7 @@
 using FourPawsCleanArchitecture.Application.DTOs;
 using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
 using FourPawsCleanArchitecture.Domain.Responses;
 using System.Collections.Generic;
@@ -19,22 +20,22 @@ namespace FourPawsCleanArchitecture.Application.Services
             _mapper = mapper;
         }
 
-        public Produto CreateProduto(RProdutoRequest rProdutoRequest)
-        {            
+        public ProdutoDTO CreateProduto(ProductInput productinput, string filename, FileStream file)
+        {
             var newProduto = new Produto
             {
                 Codigo = new Guid(),
-                Nome = rProdutoRequest.Nome,
-                CodigoCategoria = rProdutoRequest.CodigoCategoria,
-                Unidade = rProdutoRequest.Unidade,
-                Estoque = rProdutoRequest.Estoque,
-                Preco = rProdutoRequest.Preco,
-                Arquivo = rProdutoRequest.Arquivo,
-                Status = rProdutoRequest.Status
+                Nome = productinput.nome,
+                CodigoCategoria = productinput.codigoCategoria,
+                Unidade = productinput.unidade,
+                Estoque = productinput.estoque,
+                Preco = productinput.preco,
+                Arquivo = $"Assets/Products/{filename}"
             };
-            _repository.CreateProduto(newProduto);
+            _repository.CreateProduto(newProduto, file);
 
-            return newProduto;
+            ProdutoDTO produtoDTO = _mapper.Map<ProdutoDTO>(newProduto);
+            return produtoDTO;
         }
         public List<ProdutoDTO> GetAllProduto()
         {

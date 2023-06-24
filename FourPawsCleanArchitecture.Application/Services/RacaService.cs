@@ -40,15 +40,28 @@ namespace FourPawsCleanArchitecture.Application.Services
             throw new NotImplementedException();
         }
 
-        public Raca UpdateRaca(Guid codigo, RRacaRequest rRacaRequest)
+        public Raca UpdateRaca(Guid codigo, string nome, string status, string? filename = null, FileStream? file = null)
         {
             var Raca = _repository.GetRaca(codigo);
 
-            Raca.Nome = rRacaRequest.Nome;
-            Raca.Status = rRacaRequest.Status;
+            string path = $@"../FourPawsCleanArchitecture.Infraestructure/{Raca.Avatar}";
 
-            var response = _repository.UpdateRaca(Raca);
-            return response;
+            Raca.Nome = nome;
+            Raca.Status = status;
+
+            if(!string.IsNullOrEmpty(filename))
+            {
+                Raca.Avatar = $"Assets/Breed/{filename}";
+                var response = _repository.UpdateRaca(Raca, file);
+                System.IO.File.Delete(path);
+                return response;
+            }
+            else
+            {
+                var response = _repository.UpdateRaca(Raca, file);
+                return response;
+
+            }
         }
     }
 }

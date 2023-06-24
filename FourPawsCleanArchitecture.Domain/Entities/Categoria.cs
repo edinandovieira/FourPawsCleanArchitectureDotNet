@@ -18,7 +18,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
 
         [Required]
         [Comment("Status da categoria: A;Ativo;I;Inativo;D;Deletado")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "Ativo";
 
         public ICollection<Produto> Produtos { get; set; }
     }

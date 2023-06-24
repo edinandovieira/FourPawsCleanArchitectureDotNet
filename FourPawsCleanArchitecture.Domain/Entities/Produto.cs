@@ -32,7 +32,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         public string Arquivo { get; set; }
 
         [Comment("Status do produto: A;Ativo;I;Inativo;D;Deletado")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "Ativo";
 
         [ForeignKey("CodigoCategoria")]
         public Categoria Categorias { get; set; }
