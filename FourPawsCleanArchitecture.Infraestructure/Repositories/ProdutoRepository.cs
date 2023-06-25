@@ -48,10 +48,21 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
             return produto;
         }
 
-        public Produto UpdateProduto(Produto produto)
+        public Produto UpdateProduto(Produto produto, FileStream? file = null)
         {
             _db.Produtos.Update(produto);
             _db.SaveChanges();
+
+            if (file != null)
+            {
+                string path = $@"../FourPawsCleanArchitecture.Infraestructure/{produto.Arquivo}";
+
+                using (var filestream = new FileStream(path, FileMode.Create))
+                {
+                    file.Position = 0;
+                    file.CopyTo(filestream);
+                }
+            }
 
             return produto;
         }

@@ -8,8 +8,10 @@ namespace FourPawsCleanArchitecture.Domain.Entities
     public class Venda
     {
         [Key]
-        [Comment("Código da venda")]
+        [Comment("Código da registro")]
         public Guid Codigo { get; set; }
+        [Comment("Código da venda")]
+        public Guid CodigoVenda { get; set; }
         [Comment("Código do cliente na venda")]
         public Guid CodigoCliente { get; set; }
         [Comment("Código do produto da venda")]
@@ -20,7 +22,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         [Comment("Quantidade do produto na venda")]
         public int Quantidade { get; set; }
         [Comment("Status da venda: A;Ativo;I;Inativo;D;Deletado")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "A";
 
         [ForeignKey("CodigoCliente")]
         public Cliente Clientes { get; set; }

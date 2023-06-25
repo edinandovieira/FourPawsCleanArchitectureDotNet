@@ -4,6 +4,7 @@ using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
 {
@@ -57,10 +58,50 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult UpdateProduto([FromRoute] Guid codigo, RProdutoRequest rProdutoRequest)
+        public ActionResult UpdateProduto([FromRoute] Guid codigo, [FromForm] ProductInput productInput, [FromForm] string status, [FromForm] IFormFile? file)
         {
-            var response = _produtoService.UpdateProduto(codigo, rProdutoRequest);
-            return Ok(response);
+            if (file != null)
+            {
+                var fileName = file.FileName;
+
+                var filestream = new FileStream(fileName, FileMode.Create);
+
+                file.CopyTo(filestream);
+
+                var response = _produtoService.UpdateProduto(codigo, productInput, status, fileName, filestream);
+
+                filestream.Close();
+
+                System.IO.File.Delete(fileName);
+
+
+                return Ok(response);
+            }
+            else
+            {
+                string fileName = null;
+
+                FileStream filestream = null;
+
+                var response = _produtoService.UpdateProduto(codigo, productInput, status, fileName, filestream);
+
+                return Ok(response);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("avatar/{codigo:guid}")]
+        public ActionResult GetRacaAvatar([FromRoute] Guid codigo)
+        {
+            var response = _produtoService.GetProduto(codigo);
+
+            string path = $@"../FourPawsCleanArchitecture.Infraestructure/{response.Arquivo}";
+            string tipoMime = "image/jpeg";
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+
+            return File(fileBytes, tipoMime);
         }
     }
 }

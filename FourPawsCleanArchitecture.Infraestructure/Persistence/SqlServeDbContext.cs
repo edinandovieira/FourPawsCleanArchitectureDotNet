@@ -51,9 +51,6 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
 
-            //modelBuilder.Entity<Feriado>()
-            //    .HasKey(e => e.Codigo);
-
             modelBuilder.Entity<Feriado>()
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
@@ -93,6 +90,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
             modelBuilder.Entity<Venda>()
                 .Property(e => e.Status)
                 .HasDefaultValueSql("'A'");
+
+            modelBuilder.Entity<Venda>()
+                .HasOne(o => o.Produtos)
+                .WithMany(p => p.Vendas);
 
             modelBuilder.Entity<Agendamento>()
                 .Property(e => e.Status)

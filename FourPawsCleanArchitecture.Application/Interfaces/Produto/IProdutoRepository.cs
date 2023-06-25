@@ -7,7 +7,7 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
         public Produto CreateProduto(Produto produto, FileStream file);
         public Produto GetProduto(Guid codigo);
         public List<Produto> GetAllProdutos();
-        public Produto UpdateProduto(Produto produto);
+        public Produto UpdateProduto(Produto produto, FileStream? file);
         public Produto RemoveProduto(Produto produto);
     }
 }

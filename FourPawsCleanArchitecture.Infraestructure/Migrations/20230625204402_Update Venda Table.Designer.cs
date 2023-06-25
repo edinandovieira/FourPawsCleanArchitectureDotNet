@@ -4,6 +4,7 @@ using FourPawsCleanArchitecture.Infraestructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 {
     [DbContext(typeof(SqlServeDbContext))]
-    partial class SqlServeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230625204402_Update Venda Table")]
+    partial class UpdateVendaTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -463,13 +465,13 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Venda", b =>
                 {
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Cliente", "Clientes")
-                        .WithMany()
+                        .WithMany("Vendas")
                         .HasForeignKey("CodigoCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Produto", "Produtos")
-                        .WithMany()
+                        .WithMany("Vendas")
                         .HasForeignKey("CodigoProduto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -487,11 +489,18 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Cliente", b =>
                 {
                     b.Navigation("Pets");
+
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Pet", b =>
                 {
                     b.Navigation("Agendamentos");
+                });
+
+            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Produto", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Servico", b =>

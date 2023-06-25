@@ -56,22 +56,32 @@ namespace FourPawsCleanArchitecture.Application.Services
             throw new NotImplementedException();
         }
 
-        public Produto UpdateProduto(Guid codigo, RProdutoRequest rProdutoRequest)
+        public Produto UpdateProduto(Guid codigo, ProductInput productinput, string status, string? filename = null, FileStream? file = null)
         {
-            var newProduto = new Produto
-            {
-                Codigo = codigo,
-                Nome = rProdutoRequest.Nome,
-                CodigoCategoria = rProdutoRequest.CodigoCategoria,
-                Unidade = rProdutoRequest.Unidade,
-                Estoque = rProdutoRequest.Estoque,
-                Preco = rProdutoRequest.Preco,
-                Arquivo = rProdutoRequest.Arquivo,
-                Status = rProdutoRequest.Status
-            };
-            _repository.UpdateProduto(newProduto);
+            var Produto = _repository.GetProduto(codigo);
 
-            return newProduto;
+            string path = $@"../FourPawsCleanArchitecture.Infraestructure/{Produto.Arquivo}";
+
+            Produto.Nome = productinput.nome;
+            Produto.CodigoCategoria = productinput.codigoCategoria;
+            Produto.Unidade = productinput.unidade;
+            Produto.Estoque = productinput.estoque;
+            Produto.Preco = productinput.preco;
+            Produto.Status = status;
+
+            if (!string.IsNullOrEmpty(filename))
+            {
+                Produto.Arquivo = $"Assets/Products/{filename}";
+                var response = _repository.UpdateProduto(Produto, file);
+                System.IO.File.Delete(path);
+                return response;
+            }
+            else
+            {
+                var response = _repository.UpdateProduto(Produto, file);
+                return response;
+
+            }
         }
     }
 }

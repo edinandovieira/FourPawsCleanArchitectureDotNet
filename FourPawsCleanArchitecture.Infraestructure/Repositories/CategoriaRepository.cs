@@ -32,7 +32,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
 
         public List<Categoria> GetAllCategory()
         {
-            return _db.Categorias.ToList();
+            return _db.Categorias.OrderBy(x => x.Nome).ToList();
         }
 
         public Categoria GetCategory(Guid codigo)

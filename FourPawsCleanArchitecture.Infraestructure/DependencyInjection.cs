@@ -26,6 +26,7 @@ namespace FourPawsCleanArchitecture.Infraestructure
                 .AddScoped<IServicoRepository, ServicoRepository>()
                 .AddScoped<IRacaRepository, RacaRepository>()
                 .AddScoped<IProdutoRepository, ProdutoRepository>()
-                .AddScoped<ILoginRepository, LoginRepository>();
+                .AddScoped<ILoginRepository, LoginRepository>()
+                .AddScoped<IVendaRepository, VendaRepository>();
     }
 }
