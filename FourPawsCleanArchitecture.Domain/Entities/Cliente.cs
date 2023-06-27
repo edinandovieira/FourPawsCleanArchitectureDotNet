@@ -30,5 +30,6 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         public string Status { get; set; }
 
         public ICollection<Pet> Pets { get; set; }
+        public ICollection<Venda> Vendas { get; set; }
     }
 }

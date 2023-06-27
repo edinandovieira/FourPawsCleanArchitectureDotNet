@@ -38,6 +38,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
         public List<Venda> GetSale(Guid codigo)
         {
             return _db.Vendas
+                .Include(x => x.Clientes)
                 .Include(x => x.Produtos)
                 .Where(x => x.CodigoVenda == codigo)
                 .ToList();

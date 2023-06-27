@@ -5,6 +5,8 @@ using FourPawsCleanArchitecture.Domain.Records;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FourPawsCleanArchitecture.Api.Controllers
 {
@@ -19,7 +21,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _vendaService = vendaService;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet]
         public ActionResult GetAll()
         {
@@ -27,13 +29,21 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(sales);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet]
         [Route("{codigo:guid}")]
         public ActionResult Get(Guid codigo)
         {
             var sales = _vendaService.GetSale(codigo);
-            return Ok(sales);
+
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+
+            string json = JsonSerializer.Serialize(sales, options);
+
+            return Ok(json);
         }
 
         [Authorize]

@@ -27,7 +27,6 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         [ForeignKey("CodigoCliente")]
         public Cliente Clientes { get; set; }
 
-        [ForeignKey("CodigoProduto")]
         public Produto Produtos { get; set; }
     }
 }

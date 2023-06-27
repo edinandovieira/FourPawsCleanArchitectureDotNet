@@ -58,7 +58,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasIndex("CodigoServico");
 
-                    b.ToTable("Agendamentos");
+                    b.ToTable("Agendamentos", (string)null);
 
                     b.HasComment("Tabela referente aos agendamentos do sistema");
                 });
@@ -84,7 +84,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categorias", (string)null);
 
                     b.HasComment("Tabela das categoria dos produtos");
                 });
@@ -144,7 +144,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
 
                     b.HasComment("Tabela referente a clientes do sistema");
                 });
@@ -174,7 +174,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Feriados");
+                    b.ToTable("Feriados", (string)null);
 
                     b.HasComment("Tabela de feriados");
                 });
@@ -216,7 +216,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasIndex("CodigoRaca");
 
-                    b.ToTable("Pets");
+                    b.ToTable("Pets", (string)null);
 
                     b.HasComment("Tabela referente aos pets dos clientes");
                 });
@@ -266,7 +266,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasIndex("CodigoCategoria");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Produtos", (string)null);
 
                     b.HasComment("Tabela referente aos produtos do estabelecimento");
                 });
@@ -297,7 +297,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Racas");
+                    b.ToTable("Racas", (string)null);
 
                     b.HasComment("Tabela referente aos serviços do estabelecimento");
                 });
@@ -323,7 +323,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Servicos");
+                    b.ToTable("Servicos", (string)null);
 
                     b.HasComment("Tabela referente aos serviços do estabelecimento");
                 });
@@ -361,7 +361,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
 
                     b.HasComment("Tabela referentes ao usuários do sistema");
                 });
@@ -406,7 +406,7 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
 
                     b.HasIndex("CodigoProduto");
 
-                    b.ToTable("Vendas");
+                    b.ToTable("Vendas", (string)null);
 
                     b.HasComment("Tabela referente as vendas");
                 });
@@ -463,13 +463,13 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Venda", b =>
                 {
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Cliente", "Clientes")
-                        .WithMany()
+                        .WithMany("Vendas")
                         .HasForeignKey("CodigoCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FourPawsCleanArchitecture.Domain.Entities.Produto", "Produtos")
-                        .WithMany()
+                        .WithMany("Vendas")
                         .HasForeignKey("CodigoProduto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -487,11 +487,18 @@ namespace FourPawsCleanArchitecture.Infraestructure.Migrations
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Cliente", b =>
                 {
                     b.Navigation("Pets");
+
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Pet", b =>
                 {
                     b.Navigation("Agendamentos");
+                });
+
+            modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Produto", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("FourPawsCleanArchitecture.Domain.Entities.Servico", b =>

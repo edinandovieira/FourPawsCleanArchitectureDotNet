@@ -92,8 +92,14 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
                 .HasDefaultValueSql("'A'");
 
             modelBuilder.Entity<Venda>()
-                .HasOne(o => o.Produtos)
-                .WithMany(p => p.Vendas);
+                .HasOne(p => p.Produtos)
+                .WithMany(v => v.Vendas)
+                .HasForeignKey(v => v.CodigoProduto);
+
+            modelBuilder.Entity<Venda>()
+                .HasOne(p => p.Clientes)
+                .WithMany(v => v.Vendas)
+                .HasForeignKey(v => v.CodigoCliente);
 
             modelBuilder.Entity<Agendamento>()
                 .Property(e => e.Status)
