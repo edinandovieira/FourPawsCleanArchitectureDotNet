@@ -49,6 +49,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
 
             modelBuilder.Entity<Usuario>()
                 .Property(e => e.Status)
+                .HasConversion(
+                    value => ConvertStatusToStr(value),
+                    value => ConvertStatusToDb(value)
+                )
                 .HasDefaultValueSql("'A'");
 
             modelBuilder.Entity<Feriado>()
@@ -85,6 +89,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Persistence
 
             modelBuilder.Entity<Cliente>()
                 .Property(e => e.Status)
+                .HasConversion(
+                    value => ConvertStatusToStr(value),
+                    value => ConvertStatusToDb(value)
+                )
                 .HasDefaultValueSql("'A'");
 
             modelBuilder.Entity<Venda>()

@@ -37,6 +37,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         [ForeignKey("CodigoCategoria")]
         public Categoria Categorias { get; set; }
 
+        [JsonIgnore]
         public ICollection<Venda> Vendas { get; set; }
     }
 }

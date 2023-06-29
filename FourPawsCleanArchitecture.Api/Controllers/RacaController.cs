@@ -106,5 +106,14 @@ namespace FourPawsCleanArchitecture.Api.Controllers
 
             return File(fileBytes, tipoMime);
         }
+
+        [AllowAnonymous]
+        [HttpDelete]
+        [Route("{codigo:guid}")]
+        public ActionResult DeleteRaca([FromRoute] Guid codigo)
+        {
+            var response = _racaservice.RemoveRaca(codigo);
+            return Ok(response);
+        }
     }
 }

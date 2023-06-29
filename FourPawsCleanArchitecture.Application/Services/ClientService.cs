@@ -1,5 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 
 namespace FourPawsCleanArchitecture.Application.Services
 {
@@ -12,9 +13,22 @@ namespace FourPawsCleanArchitecture.Application.Services
             _repository = repository;
         }
 
-        public Cliente CreateClient(Cliente cliente)
+        public Cliente CreateClient(ClientInput cliente)
         {
-            throw new NotImplementedException();
+            var newClient = new Cliente
+            {
+                Codigo = new Guid(),
+                Nome = cliente.nome,
+                RG = cliente.rg,
+                CPF = cliente.cpf,
+                Endereco= cliente.endereco,
+                Email = cliente.email,
+                Bairro = cliente.bairro,
+                Telefone = cliente.telefone,
+                Celular = cliente.celular
+            };
+            var response = _repository.CreateClient(newClient);
+            return response;
         }
 
         public List<Cliente> GetAllClient()

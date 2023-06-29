@@ -1,5 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.DTOs;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
 
 namespace FourPawsCleanArchitecture.Application.Interfaces
@@ -9,7 +10,7 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
         List<CategoriaDTO> GetAllCategory();
         CategoriaDTO GetCategory(Guid codigo);
         CategoriaDTO CreateCategory(RCategoriaRequest rCategoriaRequest);
-        CategoriaDTO UpdateCategory(Guid codigo, RCategoriaRequest rCategoriaRequest);
+        CategoriaDTO UpdateCategory(Guid codigo, CategoryInput categoryInput);
         CategoriaDTO RemoveCategory(Categoria categoria);
     }
 }

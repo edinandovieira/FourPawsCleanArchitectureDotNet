@@ -7,7 +7,7 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
 {
     public interface IUsuarioService
     {
-        UsuarioInput CreateUser(UsuarioInput usuarioInput);
+        UsuarioDTOReponse CreateUser(UsuarioInput usuarioInput);
         UsuarioDTOReponse GetUser(Guid codigo);
         List<UsuarioDTOReponse> GetAllUser();
         UsuarioDTOReponse RemoveUser(Usuario usuario);

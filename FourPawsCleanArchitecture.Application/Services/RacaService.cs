@@ -35,9 +35,12 @@ namespace FourPawsCleanArchitecture.Application.Services
             return _repository.GetRaca(codigo);
         }
 
-        public Raca RemoveRaca(Raca raca)
+        public Raca RemoveRaca(Guid codigo)
         {
-            throw new NotImplementedException();
+            var Raca = _repository.GetRaca(codigo);
+
+            _repository.RemoveRaca(Raca);
+            return Raca;
         }
 
         public Raca UpdateRaca(Guid codigo, string nome, string status, string? filename = null, FileStream? file = null)

@@ -2,6 +2,7 @@
 using FourPawsCleanArchitecture.Application.DTOs;
 using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
 
 namespace FourPawsCleanArchitecture.Application.Services
@@ -51,11 +52,12 @@ namespace FourPawsCleanArchitecture.Application.Services
             return response;
         }
 
-        public CategoriaDTO UpdateCategory(Guid codigo, RCategoriaRequest rCategoriaRequest)
+        public CategoriaDTO UpdateCategory(Guid codigo, CategoryInput categoryInput)
         {
             var newCategoria = _categoriarepository.GetCategory(codigo);
 
-            newCategoria.Nome = rCategoriaRequest.nome;
+            newCategoria.Nome = categoryInput.nome;
+            newCategoria.Status = categoryInput.status;
 
             var category = _categoriarepository.UpdateCategory(newCategoria);
 

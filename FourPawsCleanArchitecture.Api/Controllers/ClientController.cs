@@ -1,5 +1,6 @@
 ﻿using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Application.Services;
+using FourPawsCleanArchitecture.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,14 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         public ClientController(IClientService service)
         {
             _service = service;
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(ClientInput client)
+        {
+            var response = _service.CreateClient(client);
+            return Ok(response);
         }
 
         [Authorize]

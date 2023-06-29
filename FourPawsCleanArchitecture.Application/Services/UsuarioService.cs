@@ -19,19 +19,18 @@ namespace FourPawsCleanArchitecture.Application.Services
             _usuariorepository = usuariorepository;
             _mapper = mapper;
         }
-        public UsuarioInput CreateUser(UsuarioInput usuarioInput)
+        public UsuarioDTOReponse CreateUser(UsuarioInput usuarioInput)
         {
             var newUser = new Usuario
             {
                 Codigo = Guid.NewGuid(),
                 Nome = usuarioInput.nome,
                 Senha = HashHelper.ComputeHash(usuarioInput.senha),
-                Tipo = usuarioInput.tipo,
-                Status = "A"
+                Tipo = usuarioInput.tipo
             };
 
             var user = _usuariorepository.CreateUser(newUser);
-            UsuarioInput response = _mapper.Map<UsuarioInput>(user);
+            UsuarioDTOReponse response = _mapper.Map<UsuarioDTOReponse>(user);
             return response;
         }
 

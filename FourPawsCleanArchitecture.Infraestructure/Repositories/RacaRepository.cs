@@ -43,6 +43,10 @@ namespace FourPawsCleanArchitecture.Infraestructure.Repositories
 
         public Raca RemoveRaca(Raca raca)
         {
+            string path = $@"../FourPawsCleanArchitecture.Infraestructure/{raca.Avatar}";
+
+            System.IO.File.Delete(path);
+
             _db.Racas.Remove(raca);
             _db.SaveChanges();
             return raca;

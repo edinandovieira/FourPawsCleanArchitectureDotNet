@@ -50,7 +50,15 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         [HttpPost]
         public ActionResult CreateSale(List<VendaInput> venda)
         {
-            var response = _vendaService.CreateSale(venda);
+            var sale = _vendaService.CreateSale(venda);
+
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+
+            string response = JsonSerializer.Serialize(sale, options);
+
             return Ok(response);
         }
 

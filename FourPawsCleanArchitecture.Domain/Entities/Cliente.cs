@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace FourPawsCleanArchitecture.Domain.Entities
 {
@@ -27,9 +28,12 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         [Comment("Celular do cliente")]
         public string? Celular { get; set; }
         [Comment("Status do cliente: A;Ativo;I;Inativo;D;Deletado")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "A";
 
+        [JsonIgnore]
         public ICollection<Pet> Pets { get; set; }
+
+        [JsonIgnore]
         public ICollection<Venda> Vendas { get; set; }
     }
 }

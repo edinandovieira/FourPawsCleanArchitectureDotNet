@@ -1,4 +1,5 @@
 ﻿using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 
 namespace FourPawsCleanArchitecture.Application.Interfaces
 {
@@ -6,7 +7,7 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
     {
         List<Cliente> GetAllClient();
         Cliente GetClient(Guid codigo);
-        Cliente CreateClient(Cliente cliente);
+        Cliente CreateClient(ClientInput cliente);
         Cliente UpdateClient(Cliente cliente);
         Cliente RemoveClient(Cliente cliente);
     }

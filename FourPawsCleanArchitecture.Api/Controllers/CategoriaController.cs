@@ -1,6 +1,7 @@
 ﻿using FourPawsCleanArchitecture.Application.DTOs;
 using FourPawsCleanArchitecture.Application.Interfaces;
 using FourPawsCleanArchitecture.Domain.Entities;
+using FourPawsCleanArchitecture.Domain.Models;
 using FourPawsCleanArchitecture.Domain.Records;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,9 +47,9 @@ namespace FourPawsCleanArchitecture.Api.Controllers
         [Authorize]
         [HttpPut]
         [Route("{codigo:guid}")]
-        public ActionResult UpdateCategory([FromRoute] Guid codigo, RCategoriaRequest rCategoriaRequest)
+        public ActionResult UpdateCategory([FromRoute] Guid codigo, CategoryInput categoryInput)
         {
-            var response = _categoriaService.UpdateCategory(codigo, rCategoriaRequest);
+            var response = _categoriaService.UpdateCategory(codigo, categoryInput);
             return Ok(response);
         }
     }

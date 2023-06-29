@@ -11,6 +11,6 @@ namespace FourPawsCleanArchitecture.Application.Interfaces
         public Raca GetRaca(Guid codigo);
         public List<Raca> GetAllRacas();
         public Raca UpdateRaca(Guid codigo, string nome, string status, string? filename, FileStream? file);
-        public Raca RemoveRaca(Raca raca);
+        public Raca RemoveRaca(Guid codigo);
     }
 }
