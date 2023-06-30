@@ -28,7 +28,7 @@ namespace FourPawsCleanArchitecture.Domain.Entities
         [Comment("Celular do cliente")]
         public string? Celular { get; set; }
         [Comment("Status do cliente: A;Ativo;I;Inativo;D;Deletado")]
-        public string Status { get; set; } = "A";
+        public string Status { get; set; } = "Ativo";
 
         [JsonIgnore]
         public ICollection<Pet> Pets { get; set; }

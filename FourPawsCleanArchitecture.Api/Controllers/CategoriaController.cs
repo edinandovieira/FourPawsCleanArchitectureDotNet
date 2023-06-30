@@ -19,7 +19,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _categoriaService = categoriaService;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet]
         public ActionResult GetAll()
         {
@@ -27,7 +27,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(categorias);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet]
         [Route("{codigo:guid}")]
         public ActionResult Get(Guid codigo)

@@ -19,7 +19,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             _usuarioService = usuarioService;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<UsuarioDTOReponse>> GetAllUser()
         {
@@ -36,7 +36,7 @@ namespace FourPawsCleanArchitecture.Api.Controllers
             return Ok(usuario);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult<UsuarioDTOReponse> CreateUser(UsuarioInput usuarioInput)
         {
